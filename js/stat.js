@@ -1,5 +1,10 @@
 'use strict';
 
+var HISTOGRAM_START_POSITION = 140;
+var HISTOGRAM_HEIGHT = 150;
+var HISTOGRAM_WIDTH = 40;
+var HISTOGRAM_STEP = 50;
+
 window.renderStatistics = (function (ctx, names, times) {
   var textColor = 'black';
 
@@ -22,11 +27,7 @@ window.renderStatistics = (function (ctx, names, times) {
     }
   }
 
-  var histogramPosition = 140;
-
-  var HISTOGRAM_HEIGHT = 150;
-  var HISTOGRAM_WIDTH = 40;
-  var HISTOGRAM_STEP = 50;
+  var histogramPosition = HISTOGRAM_START_POSITION;
 
   for (var j = 0; j <= names.length - 1; j++) {
     var timeHeight = Math.round(HISTOGRAM_HEIGHT * times[j] / maxTime);
