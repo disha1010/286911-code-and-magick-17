@@ -23,23 +23,24 @@ window.renderStatistics = (function (ctx, names, times) {
   }
 
   var histogramPosition = 140;
-  var histogramHeight = 150;
-  var histogramWidth = 40;
-  var histogramStep = 50;
+
+  var HISTOGRAM_HEIGHT = 150;
+  var HISTOGRAM_WIDTH = 40;
+  var HISTOGRAM_STEP = 50;
 
   for (var j = 0; j <= names.length - 1; j++) {
-    var timeHeight = Math.round(histogramHeight * times[j] / maxTime);
+    var timeHeight = Math.round(HISTOGRAM_HEIGHT * times[j] / maxTime);
     var histogramColorOpacity = Math.random();
 
     ctx.fillStyle = 'rgba(0, 0, 255,' + histogramColorOpacity + ')';
     if (names[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     }
-    ctx.fillRect(histogramPosition, 90 + histogramHeight - timeHeight, histogramWidth, timeHeight);
+    ctx.fillRect(histogramPosition, 90 + HISTOGRAM_HEIGHT - timeHeight, HISTOGRAM_WIDTH, timeHeight);
 
     ctx.fillStyle = textColor;
-    ctx.fillText(Math.round(times[j]), histogramPosition, 80 + histogramHeight - timeHeight);
+    ctx.fillText(Math.round(times[j]), histogramPosition, 80 + HISTOGRAM_HEIGHT - timeHeight);
     ctx.fillText(names[j], histogramPosition, 260);
-    histogramPosition += histogramWidth + histogramStep;
+    histogramPosition += HISTOGRAM_WIDTH + HISTOGRAM_STEP;
   }
 });
