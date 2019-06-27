@@ -134,8 +134,12 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-var openPopup = function () {
+var isFocusedEnterButton = function (buttonEvent) {
   var focused = document.activeElement;
+  return (buttonEvent.keyCode === ENTER_KEYCODE && formSubmitButton === focused);
+};
+
+var openPopup = function () {
   userDialog.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 
@@ -144,7 +148,7 @@ var openPopup = function () {
   });
 
   formSubmitButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE && formSubmitButton === focused) {
+    if (isFocusedEnterButton(evt)) {
       formSubmit();
     }
   });
