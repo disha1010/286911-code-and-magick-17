@@ -1,8 +1,8 @@
 'use strict';
 
 var WIZARDS_COUNT = 4;
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
+var ESC_KEY = 'Esc';
+var ENTER_KEY = 'Enter';
 var WIZARD_NAMES = [
   'Иван',
   'Хуан Себастьян',
@@ -129,14 +129,13 @@ var formSubmit = function () {
 
 var onPopupEscPress = function (evt) {
   var focused = document.activeElement;
-  if (evt.keyCode === ESC_KEYCODE && userName !== focused) {
+  if (evt.key === ESC_KEY && userName !== focused) {
     closePopup();
   }
 };
 
-var isFocusedEnterButton = function (buttonEvent) {
-  var focused = document.activeElement;
-  return (buttonEvent.keyCode === ENTER_KEYCODE && formSubmitButton === focused);
+var isEnterButton = function (evt) {
+  return evt.key === ENTER_KEY;
 };
 
 var openPopup = function () {
@@ -148,7 +147,7 @@ var openPopup = function () {
   });
 
   formSubmitButton.addEventListener('keydown', function (evt) {
-    if (isFocusedEnterButton(evt)) {
+    if (isEnterButton(evt)) {
       formSubmit();
     }
   });
@@ -159,13 +158,14 @@ var closePopup = function () {
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
+
 // события открытия/закрытия попапа
 setupOpen.addEventListener('click', function () {
   openPopup();
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (isEnterButton(evt)) {
     openPopup();
   }
 });
@@ -175,7 +175,7 @@ setupClose.addEventListener('click', function () {
 });
 
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (isEnterButton(evt)) {
     closePopup();
   }
 });
