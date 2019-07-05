@@ -1,21 +1,27 @@
 'use strict';
 
-window.util = (function () {
-  var ESC_KEY = 'Esc';
+(function () {
+  var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
 
-  var setup = document.querySelector('.setup');
-  var userName = setup.querySelector('.setup-user-name');
+  window.commonVar = {};
+  window.commonVar.setup = document.querySelector('.setup');
+  window.commonVar.userName = window.commonVar.setup.querySelector('.setup-user-name');
 
-  return {
+
+  window.util = {
     isEscEvent: function (evt, action) {
       var focused = document.activeElement;
-      if (evt.key === ESC_KEY && userName !== focused) {
+      if (evt.key === ESC_KEY && window.commonVar.userName !== focused) {
         action();
       }
     },
     isEnterEvent: function (evt) {
       return evt.key === ENTER_KEY;
+    },
+    getRandomValue: function (dataList) {
+      var randValueIndex = Math.floor(Math.random() * dataList.length);
+      return dataList[randValueIndex];
     }
   };
 })();
