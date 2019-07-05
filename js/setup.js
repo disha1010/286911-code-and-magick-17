@@ -45,10 +45,8 @@
     '#e6e848'
   ];
 
-  var setup = document.querySelector('.setup');
-
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
-  var wizardList = setup.querySelector('.setup-similar-list');
+  var wizardList = window.commonVar.setup.querySelector('.setup-similar-list');
 
   var wizard = document.querySelector('.setup-wizard');
   var wizardCoat = wizard.querySelector('.wizard-coat');
@@ -81,9 +79,9 @@
     var newWizards = [];
     for (var i = 0; i < elementsCount; i++) {
       var newWizard = {
-        name: window.getRandomValue(WIZARD_NAMES) + ' ' + window.getRandomValue(WIZARD_SURNAMES),
-        coatColor: window.getRandomValue(COAT_COLORS),
-        eyesColor: window.getRandomValue(EYES_COLORS),
+        name: window.util.getRandomValue(WIZARD_NAMES) + ' ' + window.util.getRandomValue(WIZARD_SURNAMES),
+        coatColor: window.util.getRandomValue(COAT_COLORS),
+        eyesColor: window.util.getRandomValue(EYES_COLORS),
       };
       newWizards.push(newWizard);
     }

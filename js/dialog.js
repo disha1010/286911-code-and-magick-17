@@ -4,16 +4,14 @@
   var POPUP_ORIGIN_TOP = '80px';
   var POPUP_ORIGIN_LEFT = '50%';
 
-  var setup = document.querySelector('.setup');
   var setupOpen = document.querySelector('.setup-open');
-  var setupClose = setup.querySelector('.setup-close');
-  var userName = setup.querySelector('.setup-user-name');
-  var formSubmitButton = setup.querySelector('.setup-submit');
-  var setupWizardForm = setup.querySelector('.setup-wizard-form');
+  var setupClose = window.commonVar.setup.querySelector('.setup-close');
+  var formSubmitButton = window.commonVar.setup.querySelector('.setup-submit');
+  var setupWizardForm = window.commonVar.setup.querySelector('.setup-wizard-form');
 
   // функции для отработки событий открытия/закрытия попапа
   var onPopupValidate = function () {
-    userName.addEventListener('invalid', function (evt) {
+    window.commonVar.userName.addEventListener('invalid', function (evt) {
       evt.preventDefault();
     });
   };
@@ -27,7 +25,7 @@
   };
 
   var openPopup = function () {
-    setup.classList.remove('hidden');
+    window.commonVar.setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
 
     formSubmitButton.addEventListener('click', function () {
@@ -42,12 +40,12 @@
   };
 
   var resetToOriginCoords = function () {
-    setup.style.top = POPUP_ORIGIN_TOP;
-    setup.style.left = POPUP_ORIGIN_LEFT;
+    window.commonVar.setup.style.top = POPUP_ORIGIN_TOP;
+    window.commonVar.setup.style.left = POPUP_ORIGIN_LEFT;
   };
 
   var closePopup = function () {
-    setup.classList.add('hidden');
+    window.commonVar.setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
     resetToOriginCoords();
   };
@@ -74,7 +72,7 @@
   });
 
   // перетаскивание
-  var dialogHandler = setup.querySelector('.upload');
+  var dialogHandler = window.commonVar.setup.querySelector('.upload');
 
   dialogHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -100,8 +98,8 @@
         y: moveEvt.clientY
       };
 
-      setup.style.top = (setup.offsetTop - shift.y) + 'px';
-      setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+      window.commonVar.setup.style.top = (window.commonVar.setup.offsetTop - shift.y) + 'px';
+      window.commonVar.setup.style.left = (window.commonVar.setup.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
