@@ -9,11 +9,20 @@
   var formSubmitButton = window.commonVar.setup.querySelector('.setup-submit');
   var setupWizardForm = window.commonVar.setup.querySelector('.setup-wizard-form');
 
-  // функции для отработки событий открытия/закрытия попапа
-  var onPopupValidate = function () {
-    window.commonVar.userName.addEventListener('invalid', function (evt) {
-      evt.preventDefault();
-    });
+  var onLoad = function () {
+    window.commonVar.setup.classList.add('hidden');
+  };
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
   };
 
   var onPopupEscPress = function (evt) {
@@ -21,7 +30,10 @@
   };
 
   var formSubmit = function () {
-    setupWizardForm.addEventListener('submit', onPopupValidate);
+    setupWizardForm.addEventListener('submit', function (evt) {
+      window.backend.save(new FormData(setupWizardForm), onLoad, onError);
+      evt.preventDefault();
+    });
   };
 
   var openPopup = function () {
