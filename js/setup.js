@@ -1,27 +1,6 @@
 'use strict';
 
 (function () {
-  var WIZARDS_COUNT = 4;
-  var WIZARD_NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-  var WIZARD_SURNAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
   var COAT_COLORS = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -60,38 +39,40 @@
   var createWizardElement = function (elementData) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = elementData.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = elementData.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = elementData.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = elementData.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = elementData.colorEyes;
     return wizardElement;
   };
 
   var createWizardFragment = function (dataList) {
     var wizardFragment = document.createDocumentFragment();
 
-    for (var i = 0; i < dataList.length; i++) {
+    for (var i = 0; i < 4; i++) {
       wizardFragment.appendChild(createWizardElement(dataList[i]));
     }
 
     return wizardFragment;
   };
 
-  var createWizardsList = function (elementsCount) {
-    var newWizards = [];
-    for (var i = 0; i < elementsCount; i++) {
-      var newWizard = {
-        name: window.util.getRandomValue(WIZARD_NAMES) + ' ' + window.util.getRandomValue(WIZARD_SURNAMES),
-        coatColor: window.util.getRandomValue(COAT_COLORS),
-        eyesColor: window.util.getRandomValue(EYES_COLORS),
-      };
-      newWizards.push(newWizard);
-    }
+  var onLoad = function (wizards) {
+    wizardList.appendChild(createWizardFragment(wizards));
+    window.commonVar.setup.querySelector('.setup-similar').classList.remove('hidden');
+  };
 
-    return newWizards;
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
   };
 
   // отрисовка списка волшебников
-  var wizards = createWizardsList(WIZARDS_COUNT);
-  wizardList.appendChild(createWizardFragment(wizards));
+  window.backend.load(onLoad, onError);
 
   // раскраска волшебника
   window.colorize(wizardCoat, COAT_COLORS, coatColorValue);
