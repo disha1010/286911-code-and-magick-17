@@ -19,9 +19,9 @@
     isEnterEvent: function (evt) {
       return evt.key === ENTER_KEY;
     },
-    getRandomValue: function (dataList) {
-      var randValueIndex = Math.floor(Math.random() * dataList.length);
-      return dataList[randValueIndex];
+    getRandomValue: function (data) {
+      var randValueIndex = Math.floor(Math.random() * data.length);
+      return data[randValueIndex];
     }
   };
 })();
